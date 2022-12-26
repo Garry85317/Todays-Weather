@@ -3,8 +3,7 @@ import moment from 'moment/moment';
 
 function useWeatherApi(search) {
     const [weatherData, setWeatherData] = useState();
-    const initialState = JSON.parse(localStorage.getItem("history")) || [];
-    const [history, setHistory] = useState(initialState);
+    const [history, setHistory] = useState(() => { return JSON.parse(localStorage.getItem("history")) || []; });
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -33,7 +32,7 @@ function useWeatherApi(search) {
             }
         }
 
-        fetchData().catch(setWeatherData());
+        fetchData();
     }, [search])
 
     useEffect(() => {
